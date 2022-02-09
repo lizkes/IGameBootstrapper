@@ -1,0 +1,29 @@
+[package]
+name = "IGameBootstrapper"
+version = "0.2.3"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+winreg = "0.10.1"
+winapi = { version = "0.3.9", features = ["shellapi"] }
+lazy_static = "1.4.0"
+serde = { version = "1.0.136", features = ["derive"] }
+ureq = { version = "2.4.0", features = ["json"] }
+tar = "0.4.38"
+aes = "0.7.5"
+base64 = "0.13.0"
+block-modes = "0.8.1"
+time = { version = "0.3.7", default-features = false, features = [
+    "std",
+    "formatting",
+    "parsing",
+] }
+zstd = "0.10.0"
+native-windows-gui = { git = "https://github.com/gabdube/native-windows-gui", rev = "6a70fca4eda641af989a1d29034bc7d6333ef6ed" }
+rand = "0.8.4"
+version-compare = "0.1.0"
+
+[build-dependencies]
+embed-resource = "1.6.5"
