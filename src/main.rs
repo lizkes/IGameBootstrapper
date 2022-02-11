@@ -21,7 +21,7 @@ fn main() {
     // 检查系统是否满足要求
     if !os_is_ok() {
         process_error(
-            "本软件只能运行在win7 win8.1 win10 win11系统上\n请尝试升级你的Windows系统".to_string(),
+            "本软件只能运行在Win7 Win8.1 Win10 Win11系统上\n请尝试升级你的Windows系统".to_string(),
             true,
             true,
             false,

@@ -73,7 +73,7 @@ impl nwg::NativeUi<PromptDlgUi> for PromptDlg {
         let mut prompt_font = nwg::Font::default();
         try_build_font(18, "NSimSun", &mut prompt_font);
         nwg::Label::builder()
-            .text("为了启动自动安装器，我们需要安装一些额外的运行环境")
+            .text("为了启动IGame安装器，我们需要安装额外的运行环境")
             .position((20, 20))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
@@ -81,24 +81,35 @@ impl nwg::NativeUi<PromptDlgUi> for PromptDlg {
             .parent(&dialog.window)
             .build(&mut dialog.prompt_label1)?;
         nwg::Label::builder()
-            .text("在安装过程中，您电脑上的杀毒软件可能会不断弹出窗口阻止安装")
+            .text(&format!(
+                "将要安装的运行环境有：{}",
+                dialog.needed_depends.join("，")
+            ))
             .position((20, 50))
+            .size((560, 20))
+            .h_align(nwg::HTextAlign::Center)
+            .font(Some(&prompt_font))
+            .parent(&dialog.window)
+            .build(&mut dialog.prompt_label6)?;
+        nwg::Label::builder()
+            .text("在安装过程中，您电脑上的杀毒软件可能会弹出窗口阻止安装")
+            .position((20, 80))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
             .font(Some(&prompt_font))
             .parent(&dialog.window)
             .build(&mut dialog.prompt_label2)?;
         nwg::Label::builder()
-            .text("为了可以正确安装，请暂时关闭杀毒软件")
-            .position((20, 80))
+            .text("为了可以正确安装，请在弹出窗口的时候点击允许，或者您可以前往官网自行安装")
+            .position((20, 110))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
             .font(Some(&prompt_font))
             .parent(&dialog.window)
             .build(&mut dialog.prompt_label3)?;
         nwg::Label::builder()
-            .text("本软件保证纯净无毒，不会进行一切与安装无关的行为")
-            .position((20, 110))
+            .text("本软件保证纯净无毒，不会进行一切与安装运行环境无关的行为")
+            .position((20, 140))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
             .font(Some(&prompt_font))
@@ -106,28 +117,15 @@ impl nwg::NativeUi<PromptDlgUi> for PromptDlg {
             .build(&mut dialog.prompt_label4)?;
         nwg::Label::builder()
             .text("如果您不信任我，请点击右上角关闭本软件")
-            .position((20, 140))
+            .position((20, 170))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
             .font(Some(&prompt_font))
             .parent(&dialog.window)
             .build(&mut dialog.prompt_label5)?;
-        let mut runtimeFont = nwg::Font::default();
-        try_build_font(18, "NSimSun", &mut runtimeFont);
-        nwg::Label::builder()
-            .text(&format!(
-                "将要安装的运行环境有：{}",
-                dialog.needed_depends.join("，")
-            ))
-            .position((20, 170))
-            .size((560, 20))
-            .h_align(nwg::HTextAlign::Center)
-            .font(Some(&runtimeFont))
-            .parent(&dialog.window)
-            .build(&mut dialog.prompt_label6)?;
 
         let mut button_font = nwg::Font::default();
-        try_build_font(21, "NSimSun", &mut button_font);
+        try_build_font(20, "NSimSun", &mut button_font);
         nwg::Button::builder()
             .enabled(false)
             .focus(false)
