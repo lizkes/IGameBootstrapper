@@ -80,32 +80,27 @@ pub fn download_depend(
     rate: Arc<Mutex<u8>>,
     rate_sender: nwg::NoticeSender,
 ) -> Result<(), String> {
-    let url: &str;
-    let temp_url: String;
+    let url: String;
     let file_name: &str;
     match name {
         ".NET框架 4.8" => {
             // 下载证书修复工具
-            // let cert_fixer_url = get_download_url(13, &ProviderGroup::Fast);
-            // download_file_without_notice(cert_fixer_url.as_str(), "Rootsupd.tzst")?;
+            let cert_fixer_url = get_download_url(13, &ProviderGroup::Fast);
+            download_file_without_notice(cert_fixer_url.as_str(), "Rootsupd.tzst")?;
 
-            // url = get_download_url(9, &ProviderGroup::Fast);
-            // file_name = ".NET Framework 4.8.tzst";
-            url = "https://go.microsoft.com/fwlink/?LinkId=2085155";
-            file_name = ".NET Framework 4.8.exe"
+            url = get_download_url(9, &ProviderGroup::Fast);
+            file_name = ".NET Framework 4.8.tzst";
         }
         "WebView2" => {
-            // if *static_var::OS_ARCH == 64 {
-            //     url = get_download_url(11, &ProviderGroup::Fast);
-            // } else {
-            //     url = get_download_url(10, &ProviderGroup::Fast);
-            // }
-            url = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
-            file_name = "WebView2Installer.exe";
+            if *static_var::OS_ARCH == 64 {
+                url = get_download_url(11, &ProviderGroup::Fast);
+            } else {
+                url = get_download_url(10, &ProviderGroup::Fast);
+            }
+            file_name = "WebView2Installer.tzst";
         }
         "IGame安装器" => {
-            temp_url = get_download_url(12, &ProviderGroup::Fast);
-            url = temp_url.as_str();
+            url = get_download_url(12, &ProviderGroup::Fast);
             file_name = "IGameInstaller.tzst";
         }
         _ => {
@@ -113,95 +108,73 @@ pub fn download_depend(
         }
     }
 
-    return download_file(url, file_name, rate, rate_sender);
+    return download_file(url.as_str(), file_name, rate, rate_sender);
 }
 
 pub fn install_depend(name: &str) -> Result<(), String> {
     match name {
         ".NET框架 4.8" => {
             //  安装Rootsupd
-            // let tzst_path = get_temp_file_path("Rootsupd.tzst");
-            // let dst_dir = get_random_temp_dir_path();
+            let tzst_path = get_temp_file_path("Rootsupd.tzst");
+            let dst_dir = get_random_temp_dir_path();
 
-            // extract_tzst(&tzst_path, &dst_dir)?;
-            // try_remove_path(&tzst_path)?;
-            // let mut installer_path = dst_dir.clone();
-            // installer_path.push("Rootsupd.exe");
-            // let output = std::process::Command::new(installer_path).output().unwrap();
+            extract_tzst(&tzst_path, &dst_dir)?;
+            try_remove_path(&tzst_path)?;
+            let mut installer_path = dst_dir.clone();
+            installer_path.push("Rootsupd.exe");
+            let output = std::process::Command::new(installer_path).output().unwrap();
 
-            // if output.status.success() {
-            //     try_remove_path(&dst_dir)?;
-            // } else {
-            //     return Err(std::str::from_utf8(&output.stderr).unwrap().to_string());
-            // }
+            if output.status.success() {
+                try_remove_path(&dst_dir)?;
+            } else {
+                return Err(std::str::from_utf8(&output.stderr).unwrap().to_string());
+            }
 
             //  安装.NET Framework 4.8
-            // let tzst_path = get_temp_file_path(".NET Framework 4.8.tzst");
-            // let dst_dir = get_random_temp_dir_path();
+            let tzst_path = get_temp_file_path(".NET Framework 4.8.tzst");
+            let dst_dir = get_random_temp_dir_path();
 
-            // extract_tzst(&tzst_path, &dst_dir)?;
-            // try_remove_path(&tzst_path)?;
-            // let mut installer_path = dst_dir.clone();
-            // installer_path.push(".NET Framework 4.8.exe");
-            // let output = std::process::Command::new(installer_path)
-            //     .args(["/passive", "/showrmui", "/promptrestart"])
-            //     .output()
-            //     .unwrap();
-
-            // if !output.status.success() {
-            //     return Err(format!(
-            //         ".NET框架 4.8安装报告了一个错误: {}",
-            //         std::str::from_utf8(&output.stderr).unwrap().to_string()
-            //     ));
-            // }
-            // try_remove_path(&dst_dir)?;
-
-            let installer_path = get_temp_file_path(".NET Framework 4.8.exe");
-            let output = std::process::Command::new(&installer_path)
+            extract_tzst(&tzst_path, &dst_dir)?;
+            try_remove_path(&tzst_path)?;
+            let mut installer_path = dst_dir.clone();
+            installer_path.push(".NET Framework 4.8.exe");
+            let output = std::process::Command::new(installer_path)
                 .args(["/passive", "/showrmui", "/promptrestart"])
                 .output()
                 .unwrap();
 
             if !output.status.success() {
-                return Err(format!(".NET框架 4.8安装失败了..."));
+                return Err(format!(
+                    ".NET框架 4.8安装报告了一个错误: {}",
+                    std::str::from_utf8(&output.stderr).unwrap().to_string()
+                ));
             }
-            try_remove_path(&installer_path)?;
+            try_remove_path(&dst_dir)?;
         }
         "WebView2" => {
-            // let tzst_path = get_temp_file_path("WebView2Installer.tzst");
-            // let dst_dir = get_random_temp_dir_path();
+            let tzst_path = get_temp_file_path("WebView2Installer.tzst");
+            let dst_dir = get_random_temp_dir_path();
 
-            // extract_tzst(&tzst_path, &dst_dir)?;
-            // try_remove_path(&tzst_path)?;
-            // let mut installer_path = dst_dir.clone();
-            // if *static_var::OS_ARCH == 64 {
-            //     installer_path.push("WebView2RuntimeInstallerX64.exe");
-            // } else {
-            //     installer_path.push("WebView2RuntimeInstallerX32.exe");
-            // }
-            // let output = std::process::Command::new(installer_path)
-            //     .args(["/silent", "/install"])
-            //     .output()
-            //     .unwrap();
-
-            // if !output.status.success() {
-            //     return Err(format!(
-            //         "WebView2安装报告了一个错误: {}",
-            //         std::str::from_utf8(&output.stderr).unwrap().to_string()
-            //     ));
-            // }
-            // try_remove_path(&dst_dir)?;
-
-            let installer_path = get_temp_file_path("WebView2Installer.exe");
-            let output = std::process::Command::new(&installer_path)
+            extract_tzst(&tzst_path, &dst_dir)?;
+            try_remove_path(&tzst_path)?;
+            let mut installer_path = dst_dir.clone();
+            if *static_var::OS_ARCH == 64 {
+                installer_path.push("WebView2RuntimeInstallerX64.exe");
+            } else {
+                installer_path.push("WebView2RuntimeInstallerX32.exe");
+            }
+            let output = std::process::Command::new(installer_path)
                 .args(["/silent", "/install"])
                 .output()
                 .unwrap();
 
             if !output.status.success() {
-                return Err(format!("WebView2安装失败了..."));
+                return Err(format!(
+                    "WebView2安装报告了一个错误: {}",
+                    std::str::from_utf8(&output.stderr).unwrap().to_string()
+                ));
             }
-            try_remove_path(&installer_path)?;
+            try_remove_path(&dst_dir)?;
         }
         "IGame安装器" => {
             let tzst_path = get_temp_file_path("IGameInstaller.tzst");
