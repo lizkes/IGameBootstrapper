@@ -100,7 +100,7 @@ impl nwg::NativeUi<PromptDlgUi> for PromptDlg {
             .parent(&dialog.window)
             .build(&mut dialog.prompt_label2)?;
         nwg::Label::builder()
-            .text("为了可以正确安装，请在弹出窗口的时候点击允许，或者您可以前往官网自行安装")
+            .text("为了可以正确安装，请在弹出窗口的时候点击允许")
             .position((20, 110))
             .size((560, 20))
             .h_align(nwg::HTextAlign::Center)
