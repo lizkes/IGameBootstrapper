@@ -21,6 +21,7 @@ pub fn process_error(message: String, open_box: bool, write_log: bool, upload: b
             .timeout(std::time::Duration::from_secs(10))
             .send_json(ureq::json!({
                 "app_name": "IGameBootstrapper",
+                "app_version": env!("CARGO_PKG_VERSION"),
                 "content": encrypt_message(message.as_str())
             }))
             .unwrap();
