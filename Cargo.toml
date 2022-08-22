@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [[bin]]
-name = "igame_bootstrapper"
+name = "IGameBootstrapper"
 path = "src/main.rs"
 
 [profile.release]
