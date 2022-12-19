@@ -1,9 +1,9 @@
 use std::io::Write;
 
-use crate::lib::crypto::encrypt_message;
-use crate::lib::file::write_temp_file;
-use crate::lib::time::generate_timestamp;
-use crate::lib::window::open_error_message_box;
+use crate::library::crypto::encrypt_message;
+use crate::library::file::write_temp_file;
+use crate::library::time::generate_timestamp;
+use crate::library::window::open_error_message_box;
 
 pub fn process_error(message: String, open_box: bool, write_log: bool, upload: bool, exit: bool) {
     if open_box {
@@ -27,6 +27,6 @@ pub fn process_error(message: String, open_box: bool, write_log: bool, upload: b
             .unwrap();
     }
     if exit {
-        crate::lib::process::exit(1);
+        crate::library::process::exit(1);
     }
 }

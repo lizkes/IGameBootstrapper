@@ -2,7 +2,7 @@ use native_windows_gui as nwg;
 use std::io::{self, Read, Write};
 use std::sync::{Arc, Mutex};
 
-use crate::lib::file::write_temp_file;
+use crate::library::file::write_temp_file;
 
 pub fn download_file(
     url: &str,

@@ -5,11 +5,11 @@ use std::sync::{Arc, Mutex};
 use winreg::enums::HKEY_LOCAL_MACHINE;
 use winreg::RegKey;
 
-use crate::lib::api::{get_download_url, ProviderGroup};
-use crate::lib::file::{
+use crate::library::api::{get_download_url, ProviderGroup};
+use crate::library::file::{
     extract_tzst, get_random_temp_dir_path, get_temp_file_path, try_remove_path,
 };
-use crate::lib::net::{download_file, download_file_without_notice};
+use crate::library::net::{download_file, download_file_without_notice};
 use crate::static_var;
 
 pub fn depend_is_installed(name: &str) -> bool {

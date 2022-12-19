@@ -4,10 +4,10 @@ use std::ops::Deref;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 
-use crate::lib::depend::{download_depend, install_depend};
-use crate::lib::error::process_error;
-use crate::lib::process::exit;
-use crate::lib::ui::try_build_font;
+use crate::library::depend::{download_depend, install_depend};
+use crate::library::error::process_error;
+use crate::library::process::exit;
+use crate::library::ui::try_build_font;
 
 #[derive(Default)]
 pub struct MainDlg {

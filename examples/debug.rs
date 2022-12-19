@@ -1,8 +1,8 @@
 #![allow(non_snake_case)]
 // #![windows_subsystem = "windows"]
 
-#[path = "../src/lib/mod.rs"]
-mod lib;
+#[path = "../src/library/mod.rs"]
+mod library;
 #[path = "../src/static_var.rs"]
 mod static_var;
 #[path = "../src/ui/mod.rs"]
@@ -11,13 +11,13 @@ mod ui;
 use native_windows_gui as nwg;
 use nwg::NativeUi;
 
-use crate::lib::depend;
-use crate::lib::error::process_error;
-use crate::lib::file::try_search_resource_id;
-use crate::lib::process::{exit, start_igame_installer};
-use crate::lib::system_info::os_is_ok;
-use crate::lib::ui::try_build_font;
-use crate::lib::update::{need_update, try_clean_old_version_file};
+use crate::library::depend;
+use crate::library::error::process_error;
+use crate::library::file::try_search_resource_id;
+use crate::library::process::{exit, start_igame_installer};
+use crate::library::system_info::os_is_ok;
+use crate::library::ui::try_build_font;
+use crate::library::update::{need_update, try_clean_old_version_file};
 use crate::ui::{MainDlg, PromptDlg, UpdateDlg};
 
 fn main() {

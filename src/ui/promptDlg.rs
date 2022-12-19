@@ -4,8 +4,8 @@ use std::ops::Deref;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 
-use crate::lib::process::exit;
-use crate::lib::ui::try_build_font;
+use crate::library::process::exit;
+use crate::library::ui::try_build_font;
 
 #[derive(Default)]
 pub struct PromptDlg {
